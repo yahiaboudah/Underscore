@@ -8,9 +8,18 @@ import java.util.concurrent.Callable;
 
 public class UnderScore {
 
+    private static final int BAD_KEY_TYPE = 1;
+    private static final int BAD_VAL_TYPE = 2;
+
+    private static String thisNotThat(Class dis, Class that, Object val){
+        return String.format(
+                "Type %s was provided instead of %s for value: %s",
+                dis.toString(), that.toString(), val.toString()
+        );
+    }
+
     @SuppressWarnings("All")
-    public static <K, V> HashMap<K, V> _(K k, V v, Object... r)
-    {
+    public static <K, V> HashMap<K, V> _(K k, V v, Object... r) throws UnderscoreException {
         Class KClass = k.getClass();
         Class VClass = v.getClass();
 
@@ -25,8 +34,11 @@ public class UnderScore {
         while ((i += 2) < L){
             F = A.get(i);
             S = A.get(i+1);
-            if(!(KClass.isInstance(F) && VClass.isInstance(S)))
-                throw new Error();
+
+            if(!KClass.isInstance(F))
+                throw new UnderscoreException(String.valueOf(BAD_KEY_TYPE), thisNotThat(F.getClass(), KClass, F));
+            if(!VClass.isInstance(S))
+                throw new UnderscoreException(String.valueOf(BAD_VAL_TYPE), thisNotThat(S.getClass(), VClass, S));
 
             M.put((K) F, (V) S);
         }
