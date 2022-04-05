@@ -11,6 +11,9 @@ public class UnderScore {
     @SuppressWarnings("All")
     public static <K, V> HashMap<K, V> _(K k, V v, Object... r)
     {
+        Class KClass = k.getClass();
+        Class VClass = v.getClass();
+
         List<Object> A = new ArrayList<>(Arrays.asList(r));
         int L = A.size(), i = -2;
         if(L % 2 == 1) A.remove(L---1);
@@ -22,7 +25,9 @@ public class UnderScore {
         while ((i += 2) < L){
             F = A.get(i);
             S = A.get(i+1);
-            // if(!(KClass.isInstance(F) /*&& VClass.isInstance(S) */)) continue;
+            if(!(KClass.isInstance(F) && VClass.isInstance(S)))
+                throw new Error();
+
             M.put((K) F, (V) S);
         }
         return M;
