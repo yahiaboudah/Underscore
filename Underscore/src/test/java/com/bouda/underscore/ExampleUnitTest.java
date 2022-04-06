@@ -1,32 +1,58 @@
 package com.bouda.underscore;
 
-import static com.bouda.underscore.UnderScore._;
+import android.util.Pair;
 
 import org.junit.Test;
-import org.w3c.dom.ls.LSOutput;
 
-import static org.junit.Assert.*;
-
+import java.io.Serializable;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 public class ExampleUnitTest {
+
+    private <T> String BAD_TYPE(T t, String type){
+        return String.format(
+                "Bad (key:%s) type: [%s] instead of [%s]", t.toString(), t.getClass().getSimpleName(), type
+        );
+    }
+
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void test(){
+
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("wow", 44);
+        map.put("78", 45);
+
+        _(
+                UnderScore.DB_STRUCTURE, true,
+                _("key", "value"),
+                _("key2", "value2"),
+                _("key3", "value3")
+        );
+
+        map.forEach((k, v) -> {
+            if(!(k instanceof String)) throw new Error(BAD_TYPE(k, "String"));
+            if(!(v instanceof Integer)) throw new Error(BAD_TYPE(v, "Integer"));
+        });
+    }
+
+    private <K> Class<?> tester(Object... r){
+        List<Object> A = new ArrayList<>(Arrays.asList(r));
+        K k = (K) A.get(0);
+        HashMap<?, K> map = new HashMap<>();
+        return A.get(0).getClass();
     }
 
     @Test
     public void isMap() throws UnderscoreException {
-        HashMap<String, Boolean> map = _(
-                "hello", true,
-                "hey", false,
-                "too", true
-        );
+        HashMap<String, ?> m = new HashMap<>();
+        // m.put("aze", "aze");
+        System.out.println(m.toString());
+        System.out.println(tester(true, "aze", 45));
     }
-
 }
