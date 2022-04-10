@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "Underscore"
 include ':app'
 include ':Underscore'
+include ':JavaUnderscore'

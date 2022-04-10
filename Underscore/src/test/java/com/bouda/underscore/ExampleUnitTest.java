@@ -1,19 +1,16 @@
 package com.bouda.underscore;
 
-import android.util.Pair;
-
 import org.junit.Test;
-
-import java.io.Serializable;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
 
 public class ExampleUnitTest {
+
+    private String fact1(){
+        return "last computer was a complete piece of garbage.";
+    }
 
     private <T> String BAD_TYPE(T t, String type){
         return String.format(
@@ -21,12 +18,14 @@ public class ExampleUnitTest {
         );
     }
 
+    /*
     @Test
     public void test(){
 
         HashMap<Object, Object> map = new HashMap<>();
         map.put("wow", 44);
         map.put("78", 45);
+        map.put("888", 777);
 
         _(
                 UnderScore.DB_STRUCTURE, true,
@@ -40,6 +39,7 @@ public class ExampleUnitTest {
             if(!(v instanceof Integer)) throw new Error(BAD_TYPE(v, "Integer"));
         });
     }
+     */
 
     private <K> Class<?> tester(Object... r){
         List<Object> A = new ArrayList<>(Arrays.asList(r));

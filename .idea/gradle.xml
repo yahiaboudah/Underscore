@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/JavaUnderscore" />
             <option value="$PROJECT_DIR$/Underscore" />
             <option value="$PROJECT_DIR$/app" />
           </set>
